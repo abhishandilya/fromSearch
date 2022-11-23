@@ -31,6 +31,7 @@
           let query = "";
 
           // if search starts with "from:" the look for people
+          //   TODO: handle cases when the user keeps typing after the colon
           if (search.startsWith("from:")) query = "@";
           else query = search;
 
