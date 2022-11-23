@@ -20,22 +20,26 @@
     ></script>
 
     <script type="text/babel">
-      function handleSearchChange(e) {
-        const search = e.target.value;
-        let query = "";
-        if (search.startsWith("from:")) query = "@";
-        else query = search;
-
-        setInputValue(search);
-        setSearchQuery(query);
-      }
-
       function FromSearch() {
         // Use the search query to suggest autocomplete results
         const [searchQuery, setSearchQuery] = React.useState("");
 
         // use this state to set the value in the input box
         const [inputValue, setInputValue] = React.useState("");
+
+        function handleSearchChange(e) {
+          const search = e.target.value;
+          let query = "";
+
+          // if search starts with
+          if (search.startsWith("from:")) query = "@";
+          else query = search;
+
+          console.log(query);
+
+          setInputValue(search);
+          setSearchQuery(query);
+        }
 
         return (
           <input
