@@ -14,45 +14,43 @@
       src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
       crossorigin
     ></script>
-    <script
-      src="https://unpkg.com/babel-standalone@6/babel.min.js"
-      crossorigin
-    ></script>
 
-    <script type="text/babel">
-      function FromSearch() {
-        // Use the search query to suggest autocomplete results
-        const [searchQuery, setSearchQuery] = React.useState("");
+    <script>
+      "use strict";
 
-        // use this state to set the value in the input box
-        const [inputValue, setInputValue] = React.useState("");
+      const ele = React.createElement;
 
-        function handleSearchChange(e) {
+      class CustomSearch extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = { inputValue: "", searchQuery: "" };
+        }
+
+        handleSearchChange(e) {
           const search = e.target.value;
           let query = "";
 
-          // if search starts with
+          // if search starts with "from:" the look for people
           if (search.startsWith("from:")) query = "@";
           else query = search;
 
           console.log(query);
 
-          setInputValue(search);
-          setSearchQuery(query);
+          this.setState({ inputValue: search, searchQuery: query });
         }
 
-        return (
-          <input
-            placeholder="Search"
-            value={inputValue}
-            onChange={handleSearchChange}
-          />
-        );
+        render() {
+          return ele("input", {
+            placeholder: "Search",
+            onChange: (e) => this.handleSearchChange(e),
+            value: this.state.inputValue,
+          });
+        }
       }
 
       const domContainer = document.querySelector("#fromSearch");
       const root = ReactDOM.createRoot(domContainer);
-      root.render(<FromSearch />);
+      root.render(ele(CustomSearch));
     </script>
   </body>
 </html>
