@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My First Web Page</title>
+  </head>
+  <body>
+    <div id="fromSearch"></div>
+
+    <script
+      src="https://unpkg.com/react@18/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/babel-standalone@6/babel.min.js"
+      crossorigin
+    ></script>
+
+    <script type="text/babel">
+      function handleSearchChange(e) {
+        const search = e.target.value;
+        let query = "";
+        if (search.startsWith("from:")) query = "@";
+        else query = search;
+
+        setInputValue(search);
+        setSearchQuery(query);
+      }
+
+      function FromSearch() {
+        // Use the search query to suggest autocomplete results
+        const [searchQuery, setSearchQuery] = React.useState("");
+
+        // use this state to set the value in the input box
+        const [inputValue, setInputValue] = React.useState("");
+
+        return (
+          <input
+            placeholder="Search"
+            value={inputValue}
+            onChange={handleSearchChange}
+          />
+        );
+      }
+
+      const domContainer = document.querySelector("#fromSearch");
+      const root = ReactDOM.createRoot(domContainer);
+      root.render(<FromSearch />);
+    </script>
+  </body>
+</html>
